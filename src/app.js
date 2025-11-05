@@ -1,5 +1,5 @@
 // importando a biblioteca express e instanciando
-import express from "express";
+const express = require('express');
 const app = express();
 app.use(express.json());
 
@@ -20,6 +20,14 @@ app.get('/', (req, res) =>{
 app.get('/tarefas/:id', (req, res) =>{
     const id = req.params.id
     const tarefa = tarefas.find(t => t.id === Number(id));
+    
+    //não está correto
+
+app.patch('/tarefas/:id', (req, res) =>{
+    const id = req.params.id
+    const status = status.find(s => s.id === Number(id));
+    res.status(200).json({"status": "status"});
+})
 
 
     if(!tarefa) {
