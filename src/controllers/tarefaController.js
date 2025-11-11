@@ -25,6 +25,13 @@ exports.listarTarefas = async (req, res) => {
 exports.criarTarefas = async (req, res) => {
   try {
     const { titulo, descricao, status, data_limite } = req.body;
+    if(!titulo || titulo.trim() ==="") {
+      return res.status(400).json({erro: "O título não pode ser vazio!"})
+    }
+    if(!status || status.trim() === "") {
+      return res.status(400).json({erro: "Status não pode ser vazio!"})
+    }
+
     const novaTarefa = await Tarefa.create({ titulo, descricao, status, data_limite });
     res.status(201).json(novaTarefa);
   } catch (error) {
