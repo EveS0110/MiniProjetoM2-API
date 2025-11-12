@@ -20,6 +20,26 @@ exports.listarTarefas = async (req, res) => {
     res.status(500).json({ erro: "Erro ao listar tarefas" });
   }
 };
+// GET busca por id
+exports.buscarTarefaPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const tarefa = await Tarefa.findByPk(id);
+
+    if (!tarefa) {
+      return res.status(404).json({ mensagem: "Tarefa não encontrada." });
+    }
+
+    if (tarefa.status === "excluída") {
+      return res.status(410).json({ mensagem: "Tarefa excluída." });
+    }
+
+    res.json(tarefa);
+  } catch (erro) {
+    res.status(500).json({ erro: "Erro ao buscar tarefa." });
+  }
+};
+
 
 // Criar tarefa
 exports.criarTarefas = async (req, res) => {
