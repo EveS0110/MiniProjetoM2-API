@@ -1,13 +1,14 @@
 // importando a bibliotecas e instanciando express 
+require('dotenv').config();
 const express = require('express');
 const sequelize = require('../config/database.js');
 const tarefaRoutes = require('./routes/tarefaRoutes.js');
 const app = express();
 app.use(express.json());
 
-//definindo a porta por onde irá rodar a API
-const PORT = 3000
 
+//definindo a porta por onde irá rodar a API
+const PORT = process.env.PORT || 3000;
 //chamando rotas e métodos GET,POST,PUT,DELETE
 app.use('/tarefas', tarefaRoutes)
 
